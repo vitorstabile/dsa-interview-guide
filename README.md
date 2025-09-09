@@ -175,6 +175,78 @@ Constraints:
 - 0 <= nums[i] <= 50
 - 0 <= val <= 100
 
+**Solution - Two Pointers**
+
+```py
+from typing import List
+
+
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        left_point = 0
+        for right_point in range(len(nums)):
+            if nums[right_point] != val:
+                nums[left_point] = nums[right_point]
+                left_point = left_point + 1
+        return left_point
+
+
+test_1 = [1,1,2,3,4]
+test_2 = [0,1,2,2,3,0,4,2]
+k_1 = Solution().removeElement(test_1, 1)
+k_2 = Solution().removeElement(test_2, 2)
+print(k_1) # 3
+print(test_1[:k_1]) # [2, 3, 4]
+print(k_2) # 5
+print(test_2[:k_2]) # [0, 1, 3, 0, 4]
+```
+
+```java
+public class Solution {
+    public int removeElement(int[] nums, int val) {
+        int k = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != val) {
+                nums[k++] = nums[i];
+            }
+        }
+        return k;
+    }
+}
+```
+
+**Solution - Brute Force**
+
+```py
+class Solution:
+    def removeElement(self, nums: list[int], val: int) -> int:
+        tmp = []
+        for num in nums:
+            if num == val:
+                continue
+            tmp.append(num)
+        for i in range(len(tmp)):
+            nums[i] = tmp[i]
+        return len(tmp)
+```
+
+```java
+public class Solution {
+    public int removeElement(int[] nums, int val) {
+        List<Integer> tmp = new ArrayList<>();
+        for (int num : nums) {
+            if (num != val) {
+                tmp.add(num);
+            }
+        }
+        for (int i = 0; i < tmp.size(); i++) {
+            nums[i] = tmp.get(i);
+        }
+        return tmp.size();
+    }
+}
+```
+
 ## <a name="chapter2"></a>Chapter 2: Recursion
 
 #### <a name="chapter2part1"></a>Chapter 2 - Part 1: Generate Parentheses(Recursion with Backtracking)
