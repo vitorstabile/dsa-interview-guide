@@ -16,6 +16,107 @@
 
 ### <a name="chapter1part1"></a>Chapter 1 - Part 1: Static Arrays
 
+**Time Complexity**
+
+| Operation | Big-O Time | Notes
+| :---: | :---: | :---: |
+| Access | O(1) | |
+| Insertion | O(1)∗ | O(n) if insertion in the middle since shifting will be required |
+| Deletion | O(1)∗ | O(n) if insertion in the middle since shifting will be required |
+
+```py
+# Insert n into arr at the next open position.
+# Length is the number of 'real' values in arr, and capacity
+# is the size (aka memory allocated for the fixed size array).
+def insertEnd(arr, n, length, capacity):
+    if length < capacity:
+        arr[length] = n
+
+# Remove from the last position in the array if the array
+# is not empty (i.e. length is non-zero).
+def removeEnd(arr, length):
+    if length > 0:
+        # Overwrite last element with some default value.
+        # We would also consider the length to be decreased by 1.
+        arr[length - 1] = 0
+
+# Insert n into index i after shifting elements to the right.
+# Assuming i is a valid index and arr is not full.
+def insertMiddle(arr, i, n, length):
+    # Shift starting from the end to i.
+    for index in range(length - 1, i - 1, -1):
+        arr[index + 1] = arr[index]
+    
+    # Insert at i
+    arr[i] = n
+
+# Remove value at index i before shifting elements to the left.
+# Assuming i is a valid index.
+def removeMiddle(arr, i, length):
+    # Shift starting from i + 1 to end.
+    for index in range(i + 1, length):
+        arr[index - 1] = arr[index]
+    # No need to 'remove' arr[i], since we already shifted
+
+def printArr(arr, capacity):
+    for i in range(capacity):
+        print(arr[i])
+
+```
+
+```java
+public class StaticArray {
+
+    // Insert n into arr at the next open position.
+    // Length is the number of 'real' values in arr, and capacity
+    // is the size (aka memory allocated for the fixed size array).
+    public void insertEnd(int[] arr, int n, int length, int capacity) {
+        if (length < capacity) {
+            arr[length] = n;
+        }
+    }    
+            
+    // Remove from the last position in the array if the array
+    // is not empty (i.e. length is non-zero).
+    public void removeEnd(int[] arr, int length) {
+        if (length > 0) {
+            // Overwrite last element with some default value.
+            // We would also consider the length to be decreased by 1.
+            arr[length - 1] = 0;
+            length--;
+        }
+    }        
+
+    // Insert n into index i after shifting elements to the right.
+    // Assuming i is a valid index and arr is not full.
+    public void insertMiddle(int[] arr, int i, int n, int length) {
+        // Shift starting from the end to i.
+        for (int index = length - 1; index > i - 1; index--) {
+            arr[index + 1] = arr[index];
+        }
+        // Insert at i
+        arr[i] = n;
+    }
+
+    // Remove value at index i before shifting elements to the left.
+    // Assuming i is a valid index.
+    public void removeMiddle(int[] arr, int i, int length) {
+        // Shift starting from i + 1 to end.
+        for (int index = i + 1; index < length; index++) {
+            arr[index - 1] = arr[index];
+        } 
+        // No need to 'remove' arr[i], since we already shifted
+    }
+
+    public void printArr(int[] arr, int length) {
+        for (int i = 0; i < length; i++) {
+            System.out.print(arr[i] + " ");
+        }      
+        System.out.println();
+    }
+}    
+```
+
 #### <a name="chapter1part1.1"></a>Chapter 1 - Part 1.1: Remove Duplicates From Sorted Array
 
 You are given an integer array nums sorted in non-decreasing order. Your task is to remove duplicates from nums in-place so that each element appears only once.
@@ -257,6 +358,134 @@ public class Solution {
 
 ### <a name="chapter1part2"></a>Chapter 1 - Part 2: Dynamic Arrays
 
+**Time Complexity**
+
+| Operation | Big-O Time | Notes
+| :---: | :---: | :---: |
+| Access | O(1) | |
+| Insertion | O(1)∗ | O(n) if insertion in the middle since shifting will be required |
+| Deletion | O(1)∗ | O(n) if insertion in the middle since shifting will be required |
+
+```py
+# Python arrays are dynamic by default, but this is an example of resizing.
+class Array:
+    def __init__(self):
+        self.capacity = 2
+        self.length = 0
+        self.arr = [0] * 2 # Array of capacity = 2
+
+    # Insert n in the last position of the array
+    def pushback(self, n):
+        if self.length == self.capacity:
+            self.resize()
+            
+        # insert at next empty position
+        self.arr[self.length] = n
+        self.length += 1
+
+    def resize(self):
+        # Create new array of double capacity
+        self.capacity = 2 * self.capacity
+        newArr = [0] * self.capacity 
+        
+        # Copy elements to newArr
+        for i in range(self.length):
+            newArr[i] = self.arr[i]
+        self.arr = newArr
+        
+    # Remove the last element in the array
+    def popback(self):
+        if self.length > 0:
+            self.length -= 1
+    
+    # Get value at i-th index
+    def get(self, i):
+        if i < self.length:
+            return self.arr[i]
+        # Here we would throw an out of bounds exception
+
+    # Insert n at i-th index
+    def insert(self, i, n):
+        if i < self.length:
+            self.arr[i] = n
+            return
+        # Here we would throw an out of bounds exception       
+
+    def print(self):
+        for i in range(self.length):
+            print(self.arr[i])
+        print()
+```
+
+```java
+public class DynamicArray {
+    int capacity;
+    int length;
+    int[] arr;
+
+    public DynamicArray() {
+        capacity = 2;
+        length = 0;
+        arr = new int[2];
+    }
+
+    // Insert n in the last position of the array
+    public void pushback(int n) {
+        if (length == capacity) {
+            this.resize();
+        }
+               
+        // insert at next empty position
+        arr[length] = n;
+        length++;
+    }
+
+    public void resize() {
+        // Create new array of double capacity
+        capacity = 2 * capacity;
+        int[] newArr = new int[capacity]; 
+        
+        // Copy elements to newArr
+        for (int i = 0; i < length; i++) {
+            newArr[i] = arr[i];
+        }
+        arr = newArr;
+    }  
+
+    // Remove the last element in the array
+    public void popback() {
+        if (length > 0) {
+            length--;
+        }  
+    }     
+
+    // Get value at i-th index
+    public int get(int i) {
+        if (i < length) {
+            return arr[i];
+        }    
+        // Here we would throw an out of bounds exception
+        return -1;
+    }    
+
+    // Insert n at i-th index
+    public void insert(int i, int n) {
+        if (i < length) {
+            arr[i] = n;
+            return;
+        }    
+        return;
+        // Here we would throw an out of bounds exception  
+    }        
+
+    public void print() {
+        for (int i = 0; i < length; i++) {
+            System.out.println(arr[i]);
+        }
+    }
+} 
+```
+
 #### <a name="chapter1part2.1"></a>Chapter 1 - Part 2.1: Concatenation of Array
 
 You are given an integer array nums of length n. Create an array ans of length 2n where ans[i] == nums[i] and ans[i + n] == nums[i] for 0 <= i < n (0-indexed).
@@ -282,6 +511,9 @@ Output: [22,21,20,1,22,21,20,1]
 ```
 
 **Solution - Iteration**
+
+Time complexity: O(n)
+Space complexity: O(1)
 
 ```py
 from typing import List
