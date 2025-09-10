@@ -1,14 +1,22 @@
 # DSA
 
-1. [Chapter 1: Static Arrays](#chapter1)
-	- [Chapter 1 - Part 1: Remove Duplicates From Sorted Array](#chapter1part1)
-	- [Chapter 1 - Part 2: Remove Element](#chapter1part2)
-3. [Chapter 2: Recursion](#chapter2)
-    - [Chapter 2 - Part 1: Generate Parentheses(Recursion with Backtracking)](#chapter2part1)
+1. [Chapter 1: Arrays](#chapter1)
+	- [Chapter 1 - Part 1: Static Arrays](#chapter1part1)
+      - [Chapter 1 - Part 1.1: Remove Duplicates From Sorted Array](#chapter1part1.1)
+      - [Chapter 1 - Part 1.2: Remove Element](#chapter1part1.2)
+    - [Chapter 1 - Part 2: Dynamic Arrays](#chapter1part2)
+      - [Chapter 1 - Part 2.1: Concatenation of Array](#chapter1part2.1)
+    - [Chapter 1 - Part 3: Stacks](#chapter1part3)
+      - [Chapter 1 - Part 3.1: Valid Parentheses](#chapter1part3.1)
+      - [Chapter 1 - Part 3.2: Min Stack](#chapter1part3.2)
+3. [Chapter 3: Recursion](#chapter2)
+    - [Chapter 3 - Part 1: Generate Parentheses(Recursion with Backtracking)](#chapter3part1)
 
-## <a name="chapter2"></a>Chapter 1: Static Arrays
+## <a name="chapter1"></a>Chapter 1: Arrays
 
-#### <a name="chapter1part1"></a>Chapter 1 - Part 1: Remove Duplicates From Sorted Array
+### <a name="chapter1part1"></a>Chapter 1 - Part 1: Static Arrays
+
+#### <a name="chapter1part1.1"></a>Chapter 1 - Part 1.1: Remove Duplicates From Sorted Array
 
 You are given an integer array nums sorted in non-decreasing order. Your task is to remove duplicates from nums in-place so that each element appears only once.
 
@@ -135,7 +143,7 @@ public class Solution {
 }
 ```
 
-#### <a name="chapter1part2"></a>Chapter 1 - Part 2: Remove Element
+#### <a name="chapter1part1.2"></a>Chapter 1 - Part 1.2: Remove Element
 
 You are given an integer array nums and an integer val. Your task is to remove all occurrences of val from nums in-place.
 
@@ -247,9 +255,77 @@ public class Solution {
 }
 ```
 
+### <a name="chapter1part2"></a>Chapter 1 - Part 2: Dynamic Arrays
+
+#### <a name="chapter1part2.1"></a>Chapter 1 - Part 2.1: Concatenation of Array
+
+You are given an integer array nums of length n. Create an array ans of length 2n where ans[i] == nums[i] and ans[i + n] == nums[i] for 0 <= i < n (0-indexed).
+
+Specifically, ans is the concatenation of two nums arrays.
+
+Return the array ans.
+
+**Example 1:**
+
+```
+Input: nums = [1,4,1,2]
+
+Output: [1,4,1,2,1,4,1,2]
+```
+
+**Example 2:**
+
+```
+Input: nums = [22,21,20,1]
+
+Output: [22,21,20,1,22,21,20,1]
+```
+
+**Solution - Iteration**
+
+```py
+from typing import List
+
+
+class Solution:
+    def getConcatenation(self, nums: List[int]) -> List[int]:
+        ans = nums
+        for right_pointer in range(0, len(nums)):
+            ans.append(nums[right_pointer])
+        return ans
+
+
+nums_test_1 = [1, 4, 1, 2]
+nums_test_2 = [22, 21, 20, 1]
+ans_1 = Solution().getConcatenation(nums_test_1)
+ans_2 = Solution().getConcatenation(nums_test_2)
+print(ans_1)  # [1, 4, 1, 2, 1, 4, 1, 2]
+print(ans_2)  # [22, 21, 20, 1, 22, 21, 20, 1]
+
+```
+
+```java
+public class Solution {
+    public int[] getConcatenation(int[] nums) {
+        int n = nums.length;
+        int[] ans = new int[2 * n];
+        for (int i = 0; i < n; i++) {
+            ans[i] = ans[i + n] = nums[i];
+        }
+        return ans;
+    }
+}
+```
+
+### <a name="chapter1part3"></a>Chapter 1 - Part 3: Stacks
+
+#### <a name="chapter1part3.1"></a>Chapter 1 - Part 3.1: Valid Parentheses
+
+#### <a name="chapter1part3.2"></a>Chapter 1 - Part 3.2: Min Stack
+
 ## <a name="chapter2"></a>Chapter 2: Recursion
 
-#### <a name="chapter2part1"></a>Chapter 2 - Part 1: Generate Parentheses(Recursion with Backtracking)
+### <a name="chapter2part1"></a>Chapter 2 - Part 1: Generate Parentheses(Recursion with Backtracking)
 
 Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 
