@@ -9,8 +9,8 @@
     - [Chapter 1 - Part 3: Stacks](#chapter1part3)
       - [Chapter 1 - Part 3.1: Valid Parentheses](#chapter1part3.1)
       - [Chapter 1 - Part 3.2: Min Stack](#chapter1part3.2)
-3. [Chapter 3: Recursion](#chapter2)
-    - [Chapter 3 - Part 1: Generate Parentheses(Recursion with Backtracking)](#chapter3part1)
+3. [Chapter 4: Recursion](#chapter4)
+    - [Chapter 4 - Part 1: Generate Parentheses(Recursion with Backtracking)](#chapter4part1)
 
 ## <a name="chapter1"></a>Chapter 1: Arrays
 
@@ -323,9 +323,9 @@ public class Solution {
 
 #### <a name="chapter1part3.2"></a>Chapter 1 - Part 3.2: Min Stack
 
-## <a name="chapter2"></a>Chapter 2: Recursion
+## <a name="chapter4"></a>Chapter 4: Recursion
 
-### <a name="chapter2part1"></a>Chapter 2 - Part 1: Generate Parentheses(Recursion with Backtracking)
+### <a name="chapter4part1"></a>Chapter 4 - Part 1: Generate Parentheses(Recursion with Backtracking)
 
 Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 
