@@ -5,6 +5,7 @@
       - [Chapter 1 - Part 1.1: Remove Duplicates From Sorted Array](#chapter1part1.1)
       - [Chapter 1 - Part 1.2: Remove Element](#chapter1part1.2)
       - [Chapter 1 - Part 1.3: Contains Duplicate](#chapter1part1.3)
+      - [Chapter 1 - Part 1.4: Valid Anagram](#chapter1part1.4)
     - [Chapter 1 - Part 2: Dynamic Arrays](#chapter1part2)
       - [Chapter 1 - Part 2.1: Concatenation of Array](#chapter1part2.1)
     - [Chapter 1 - Part 3: Stacks](#chapter1part3)
@@ -403,6 +404,65 @@ print(solution.hasDuplicate([1, 1]))  # True
 public class Solution {
     public boolean hasDuplicate(int[] nums) {
         return Arrays.stream(nums).distinct().count() < nums.length;
+    }
+}
+```
+
+#### <a name="chapter1part1.4"></a>Chapter 1 - Part 1.4: Valid Anagram
+
+Given two strings s and t, return true if the two strings are anagrams of each other, otherwise return false.
+
+An anagram is a string that contains the exact same characters as another string, but the order of the characters can be different.
+
+**Example 1:**
+
+```
+Input: s = "racecar", t = "carrace"
+
+Output: true
+```
+
+**Example 2:**
+
+```
+Input: s = "jar", t = "jam"
+
+Output: false
+```
+
+**Solution - Sort**
+
+Time complexity: O(n.logn)
+Space complexity: O(n)
+
+```py
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:
+        sorted_s = ''.join(sorted(s))
+        sorted_t = ''.join(sorted(t))
+        if not sorted_s == sorted_t:
+            return False
+        else:
+            return True
+
+solution = Solution()
+print(solution.isAnagram("racecar","carrace"))  # True
+print(solution.isAnagram("jar", "jam"))  # False
+print(solution.isAnagram("jar", "jarr")) # False
+```
+
+```java
+public class Solution {
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+
+        char[] sSort = s.toCharArray();
+        char[] tSort = t.toCharArray();
+        Arrays.sort(sSort);
+        Arrays.sort(tSort);
+        return Arrays.equals(sSort, tSort);
     }
 }
 ```
