@@ -4,6 +4,7 @@
 	- [Chapter 1 - Part 1: Static Arrays](#chapter1part1)
       - [Chapter 1 - Part 1.1: Remove Duplicates From Sorted Array](#chapter1part1.1)
       - [Chapter 1 - Part 1.2: Remove Element](#chapter1part1.2)
+      - [Chapter 1 - Part 1.3: Contains Duplicate](#chapter1part1.3)
     - [Chapter 1 - Part 2: Dynamic Arrays](#chapter1part2)
       - [Chapter 1 - Part 2.1: Concatenation of Array](#chapter1part2.1)
     - [Chapter 1 - Part 3: Stacks](#chapter1part3)
@@ -352,6 +353,56 @@ public class Solution {
             nums[i] = tmp.get(i);
         }
         return tmp.size();
+    }
+}
+```
+
+#### <a name="chapter1part1.3"></a>Chapter 1 - Part 1.3: Contains Duplicate
+
+Given an integer array nums, return true if any value appears more than once in the array, otherwise return false.
+
+**Example 1:**
+
+```
+Input: nums = [1, 2, 3, 3]
+
+Output: true
+```
+
+**Example 2:**
+
+```
+Input: nums = [1, 2, 3, 4]
+
+Output: false
+```
+
+**Solution - Set Lenght**
+
+```py
+from typing import List
+
+
+class Solution:
+    def hasDuplicate(self, nums: List[int]) -> bool:
+        no_duplicates = set(nums)
+        if len(nums) != len(no_duplicates):
+            return True
+        else:
+            return False
+
+
+solution = Solution()
+print(solution.hasDuplicate([1, 2, 3, 3]))  # True
+print(solution.hasDuplicate([1, 2, 3, 4]))  # False
+print(solution.hasDuplicate([1]))  # False
+print(solution.hasDuplicate([1, 1]))  # True
+```
+
+```java
+public class Solution {
+    public boolean hasDuplicate(int[] nums) {
+        return Arrays.stream(nums).distinct().count() < nums.length;
     }
 }
 ```
