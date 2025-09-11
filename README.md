@@ -551,7 +551,163 @@ public class Solution {
 
 ### <a name="chapter1part3"></a>Chapter 1 - Part 3: Stacks
 
+**Time Complexity**
+
+| Operation | Big-O Time | Notes
+| :---: | :---: | :---: |
+| Push | O(1) | |
+| Pop | O(1)∗ | Check if the stack is empty first |
+| Peek / Top | O(1)∗ | Retrieves without removing |
+
+```py
+# Implementing a stack is trivial using a dynamic array
+# (which we implemented earlier).
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    def push(self, n):
+        self.stack.append(n)
+
+    def pop(self):
+        return self.stack.pop()
+
+	def peek(self):
+    return self.stack[-1]
+```
+
+```py
+import java.util.ArrayList;
+
+// Implementing a stack is trivial using a dynamic array
+// (which we implemented earlier).
+public class Stack {
+
+    ArrayList<Integer> stack = new ArrayList<Integer>();
+
+    public Stack() {   
+    }
+
+    public void push(int n) {
+        stack.add(n);
+    }
+
+    public int pop() {
+        return stack.remove(stack.size() - 1);
+    }
+
+    public int size() {
+        return stack.size();
+    }
+
+	public int peek() {
+    return stack.get(stack.size() - 1);
+	}
+
+}
+```
+
+
 #### <a name="chapter1part3.1"></a>Chapter 1 - Part 3.1: Valid Parentheses
+
+You are given a string s consisting of the following characters: '(', ')', '{', '}', '[' and ']'.
+
+The input string s is valid if and only if:
+
+- Every open bracket is closed by the same type of close bracket.
+- Open brackets are closed in the correct order.
+- Every close bracket has a corresponding open bracket of the same type.
+
+Return true if s is a valid string, and false otherwise.
+
+**Example 1:**
+
+```
+Input: s = "[]"
+
+Output: true
+```
+
+**Example 2:**
+
+```
+Input: s = "([{}])"
+
+Output: true
+```
+
+**Example 3:**
+
+```
+Input: s = "[(])"
+
+Output: false
+```
+
+Explanation: The brackets are not closed in the correct order.
+
+Constraints:
+
+- 1 <= s.length <= 1000
+
+**Solution - Stack**
+
+```py
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        for parenthese in s:
+            if parenthese == '(':
+                stack.append(parenthese)
+            elif parenthese == '[':
+                stack.append(parenthese)
+            elif parenthese == '{':
+                stack.append(parenthese)
+            elif parenthese == ')':
+                if stack and stack[-1] == '(':
+                    stack.pop()
+                else:
+                    return False
+            elif parenthese == ']':
+                if stack and stack[-1] == '[':
+                    stack.pop()
+                else:
+                    return False
+            elif parenthese == '}':
+                if stack and stack[-1] == '{':
+                    stack.pop()
+                else:
+                    return False
+        if stack:
+            return False
+        else:
+            return True
+```
+
+```java
+public class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        java.util.Map<Character, Character> closeToOpen = new java.util.HashMap<>();
+        closeToOpen.put(')', '(');
+        closeToOpen.put(']', '[');
+        closeToOpen.put('}', '{');
+
+        for (char c : s.toCharArray()) {
+            if (closeToOpen.containsKey(c)) {
+                if (!stack.isEmpty() && stack.peek() == closeToOpen.get(c)) {
+                    stack.pop();
+                } else {
+                    return false;
+                }
+            } else {
+                stack.push(c);
+            }
+        }
+        return stack.isEmpty();
+    }
+}
+```
 
 #### <a name="chapter1part3.2"></a>Chapter 1 - Part 3.2: Min Stack
 
