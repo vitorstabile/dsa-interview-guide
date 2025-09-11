@@ -744,6 +744,95 @@ minStack.getMin(); // return 1
 - ```-2^31 <= val <= 2^31 - 1.```
 - pop, top and getMin will always be called on non-empty stacks.
 
+****Solution - Two Stacks**
+
+```py
+class MinStack:
+
+    def __init__(self):
+        self.min_stack = []
+        self.stack = []
+
+    def push(self, val: int) -> None:
+        if len(self.stack) == 0:
+            self.min_stack.append(val)
+            self.stack.append(val)
+        else:
+            if self.min_stack[-1] >= val:
+                self.min_stack.append(val)
+                self.stack.append(val)
+            else:
+                self.stack.append(val)
+
+    def pop(self) -> None:
+        if len(self.stack) > 0:
+            value = self.stack.pop()
+            if value <= self.min_stack[-1]:
+                self.min_stack.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.min_stack[-1]
+
+
+commands = ["MinStack", "push", 5, "push", 0, "push", 2, "push", 4, "getMin", "pop", "getMin", "pop", "getMin"]
+commands_2 = ["MinStack", "push", 1, "push", 2, "push", 0, "getMin", "pop", "top", "getMin"]
+results = []
+minStack = None
+for i, command in enumerate(commands_2):
+    if command == 'MinStack':
+        minStack = MinStack()
+        results.append(None)
+    elif command == 'push':
+        minStack.push(commands_2[i + 1])
+        results.append(None)
+    elif command == 'pop':
+        minStack.pop()
+        results.append(None)
+    elif command == 'top':
+        results.append(minStack.top())
+    elif command == 'getMin':
+        results.append(minStack.getMin())
+print(results) # [None, None, None, None, 0, None, 2, 1]
+```
+
+```java
+public class MinStack {
+    private Stack<Integer> stack;
+    private Stack<Integer> minStack;
+
+    public MinStack() {
+        stack = new Stack<>();
+        minStack = new Stack<>();
+    }
+
+    public void push(int val) {
+        stack.push(val);
+        if (minStack.isEmpty() || val <= minStack.peek()) {
+            minStack.push(val);
+        }
+    }
+
+    public void pop() {
+        if (stack.isEmpty()) return;
+        int top = stack.pop();
+        if (top == minStack.peek()) {
+            minStack.pop();
+        }
+    }
+
+    public int top() {
+        return stack.peek();
+    }
+
+    public int getMin() {
+        return minStack.peek();
+    }
+}
+```
+
 ## <a name="chapter4"></a>Chapter 4: Recursion
 
 ### <a name="chapter4part1"></a>Chapter 4 - Part 1: Generate Parentheses(Recursion with Backtracking)
