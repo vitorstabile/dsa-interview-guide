@@ -1003,42 +1003,72 @@ HEAD → [10] → [20] → [99] → [30] → [40] → [50] → NULL
 Complexity: O(1) (just changing two pointers).
 
 ```py
-class ListNode:
-    def __init__(self, val):
-        self.val = val
+class Node:
+    def __init__(self, data):
+        self.data = data
         self.next = None
 
-# Implementation for Singly Linked List
-class LinkedList:
+
+class SinglyLinkedList:
     def __init__(self):
-        # Init the list with a 'dummy' node which makes 
-        # removing a node from the beginning of list easier.
-        self.head = ListNode(-1)
-        self.tail = self.head
-    
-    def insertEnd(self, val):
-        self.tail.next = ListNode(val)
-        self.tail = self.tail.next
+        self.head = None
+        self.tail = None
 
-    def remove(self, index):
-        i = 0
-        curr = self.head
-        while i < index and curr:
-            i += 1
-            curr = curr.next
-        
-        # Remove the node ahead of curr
-        if curr and curr.next:
-            if curr.next == self.tail:
-                self.tail = curr
-            curr.next = curr.next.next
+    def insert_at_end(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            self.tail = new_node
 
-    def print(self):
-        curr = self.head.next
-        while curr:
-            print(curr.val, " -> ", end="")
-            curr = curr.next
-        print()
+    def insert_at_beginning(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            new_node.next = self.head
+            self.head = new_node
+
+    def remove_at_index(self, index):
+        if self.head is None:
+            return
+
+        if index == 0:
+            if self.head == self.tail:
+                self.tail = None
+            self.head = self.head.next
+            return
+
+        current = self.head
+        count = 0
+        while current and count < index - 1:
+            current = current.next
+            count += 1
+
+        if current is None or current.next is None:
+            return
+
+        if current.next == self.tail:
+            self.tail = current
+        current.next = current.next.next
+
+    def print_list(self):
+        current = self.head
+        while current:
+            print(current.data, end=" -> ")
+            current = current.next
+        print("None")
+
+
+singly_linked_list = SinglyLinkedList()
+singly_linked_list.insert_at_end('John')
+singly_linked_list.insert_at_end('Bob')
+singly_linked_list.insert_at_beginning('Laila')
+singly_linked_list.remove_at_index(2)
+singly_linked_list.print_list()
 
 ```
 
