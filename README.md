@@ -11,8 +11,12 @@
     - [Chapter 1 - Part 3: Stacks](#chapter1part3)
       - [Chapter 1 - Part 3.1: Valid Parentheses](#chapter1part3.1)
       - [Chapter 1 - Part 3.2: Min Stack](#chapter1part3.2)
-3. [Chapter 4: Recursion](#chapter4)
-    - [Chapter 4 - Part 1: Generate Parentheses(Recursion with Backtracking)](#chapter4part1)
+2. [Chapter 2: Linked Lists](#chapter2)
+	- [Chapter 2 - Part 1: Singly Linked Lists](#chapter2part1)
+	- [Chapter 2 - Part 2: Doubly Linked Lists](#chapter2part2)
+	- [Chapter 2 - Part 3: Queues](#chapter2part3)
+3. [Chapter 3: Recursion](#chapter3)
+    - [Chapter 3 - Part 1: Generate Parentheses(Recursion with Backtracking)](#chapter3part1)
 
 ## <a name="chapter1"></a>Chapter 1: Arrays
 
@@ -944,9 +948,443 @@ public class MinStack {
 }
 ```
 
-## <a name="chapter4"></a>Chapter 4: Recursion
+## <a name="chapter2"></a>Chapter 2: Linked Lists
 
-### <a name="chapter4part1"></a>Chapter 4 - Part 1: Generate Parentheses(Recursion with Backtracking)
+### <a name="chapter2part1"></a>Chapter 2 - Part 1: Singly Linked Lists
+
+**Time Complexity**
+
+| Operation | Big-O Time | Notes
+| :---: | :---: | :---: |
+| Access | O(n) | |
+| Search | O(n)∗ | |
+| Insertion | O(1)∗ | Assuming you already have a reference to the node at the desired position. OBS: Example Above |
+| Deletion | O(1)∗ | Assuming you already have a reference to the node at the desired position OBS: Example Above |
+
+Why using a index have a time complexity of O(n) and with a reference have a time complexity of O(1)?
+
+Example:
+
+```
+HEAD → [10] → [20] → [30] → [40] → [50] → NULL
+```
+
+**Case 1: We want to insert 99 before 30 (at index 2).**
+
+- Traverse from HEAD:
+  - Index 0 → [10]
+  - Index 1 → [20]
+  - Stop at index 2 → [30]
+- Traversal takes O(n).
+- Update pointers:
+
+```
+[20] → [99] → [30]
+```
+
+ Complexity: traversal O(n) + pointer update O(1) = total O(n).
+
+**Case 2: If we already have a reference to node [20]**
+
+- We don’t traverse at all. We just do:
+
+```
+newNode = [99]
+newNode.next = node20.next   // points to [30]
+node20.next = newNode
+```
+
+- Result:
+
+```
+HEAD → [10] → [20] → [99] → [30] → [40] → [50] → NULL
+```
+
+Complexity: O(1) (just changing two pointers).
+
+```py
+class ListNode:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
+# Implementation for Singly Linked List
+class LinkedList:
+    def __init__(self):
+        # Init the list with a 'dummy' node which makes 
+        # removing a node from the beginning of list easier.
+        self.head = ListNode(-1)
+        self.tail = self.head
+    
+    def insertEnd(self, val):
+        self.tail.next = ListNode(val)
+        self.tail = self.tail.next
+
+    def remove(self, index):
+        i = 0
+        curr = self.head
+        while i < index and curr:
+            i += 1
+            curr = curr.next
+        
+        # Remove the node ahead of curr
+        if curr and curr.next:
+            if curr.next == self.tail:
+                self.tail = curr
+            curr.next = curr.next.next
+
+    def print(self):
+        curr = self.head.next
+        while curr:
+            print(curr.val, " -> ", end="")
+            curr = curr.next
+        print()
+
+```
+
+```java
+/*
+public class ListNode {
+    int val;
+    ListNode next;
+
+    public ListNode(int val) {
+        this.val = val;
+        this.next = null;
+    }
+}
+*/
+
+// Implementation for Singly Linked List
+public class SinglyLinkedList {
+    ListNode head;
+    ListNode tail;
+
+    public SinglyLinkedList() {
+        head = new ListNode(-1);
+        tail = head;
+    }
+
+    public void insertEnd(int val) {
+        tail.next = new ListNode(val);
+        tail = tail.next; 
+    }
+
+    public void remove(int index) {
+        int i = 0;
+        ListNode curr = head;
+        while (i < index && curr != null) {
+            i++;
+            curr = curr.next;
+        }
+        
+        // Remove the node ahead of curr
+        if (curr != null && curr.next != null) {
+            if (curr.next == tail) {
+                tail = curr;
+            }
+            curr.next = curr.next.next;
+        }
+    }
+
+    public void print() {
+        ListNode curr = head.next;
+        while (curr != null) {
+            System.out.print(curr.val + " -> ");
+            curr = curr.next;
+        }
+
+        System.out.println();
+    }
+    
+}
+```
+
+### <a name="chapter2part2"></a>Chapter 2 - Part 2: Doubly Linked Lists
+
+**OBS: Doubly linked lists have the benefit that we can traverse the list in both directions, as opposed to singly linked lists.**
+
+**Time Complexity**
+
+| Operation | Big-O Time | Notes
+| :---: | :---: | :---: |
+| Access | O(n) | |
+| Search | O(n)∗ | |
+| Insertion | O(1)∗ | Assuming you already have a reference to the node at the desired position. OBS: Example Above |
+| Deletion | O(1)∗ | Assuming you already have a reference to the node at the desired position OBS: Example Above |
+
+Why using a index have a time complexity of O(n) and with a reference have a time complexity of O(1)?
+
+Example:
+
+```
+HEAD → [10] → [20] → [30] → [40] → [50] → NULL
+```
+
+**Case 1: We want to insert 99 before 30 (at index 2).**
+
+- Traverse from HEAD:
+  - Index 0 → [10]
+  - Index 1 → [20]
+  - Stop at index 2 → [30]
+- Traversal takes O(n).
+- Update pointers:
+
+```
+[20] → [99] → [30]
+```
+
+ Complexity: traversal O(n) + pointer update O(1) = total O(n).
+
+**Case 2: If we already have a reference to node [20]**
+
+- We don’t traverse at all. We just do:
+
+```
+newNode = [99]
+newNode.next = node20.next   // points to [30]
+node20.next = newNode
+```
+
+- Result:
+
+```
+HEAD → [10] → [20] → [99] → [30] → [40] → [50] → NULL
+```
+
+Complexity: O(1) (just changing two pointers).
+
+```py
+class ListNode:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+        self.prev = None
+
+# Implementation for Doubly Linked List
+class LinkedList:
+    def __init__(self):
+        # Init the list with 'dummy' head and tail nodes which makes 
+        # edge cases for insert & remove easier.
+        self.head = ListNode(-1)
+        self.tail = ListNode(-1)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+    
+    def insertFront(self, val):
+        newNode = ListNode(val)
+        newNode.prev = self.head
+        newNode.next = self.head.next
+
+        self.head.next.prev = newNode
+        self.head.next = newNode
+
+    def insertEnd(self, val):
+        newNode = ListNode(val)
+        newNode.next = self.tail
+        newNode.prev = self.tail.prev
+
+        self.tail.prev.next = newNode
+        self.tail.prev = newNode
+
+    # Remove first node after dummy head (assume it exists)
+    def removeFront(self):
+        self.head.next.next.prev = self.head
+        self.head.next = self.head.next.next
+
+    # Remove last node before dummy tail (assume it exists)
+    def removeEnd(self):
+        self.tail.prev.prev.next = self.tail
+        self.tail.prev = self.tail.prev.prev
+
+    def print(self):
+        curr = self.head.next
+        while curr != self.tail:
+            print(curr.val, " -> ")
+            curr = curr.next
+        print()
+```
+
+```java
+/*
+public class DoublyLinkedListNode {
+    
+    int val;
+    DoublyLinkedListNode next;
+    DoublyLinkedListNode prev;
+
+    public DoublyLinkedListNode(int val) {
+        this.val = val;
+        this.next = null;
+        this.prev = null;
+    }
+}
+*/
+
+// Implementation for Doubly Linked List
+public class DoublyLinkedList {
+    DoublyLinkedListNode head;
+    DoublyLinkedListNode tail;
+
+    public DoublyLinkedList() {
+        head = new DoublyLinkedListNode(-1);
+        tail = new DoublyLinkedListNode(-1);
+        head.next = tail;
+        tail.prev = head;
+    }
+
+    public void insertFront(int val) {
+        DoublyLinkedListNode newNode = new DoublyLinkedListNode(val);
+        newNode.prev = head;
+        newNode.next = head.next;
+        
+        head.next.prev = newNode;
+        head.next = newNode;
+    }
+
+    public void insertEnd(int val) {
+        DoublyLinkedListNode newNode = new DoublyLinkedListNode(val);
+        newNode.next = tail;
+        newNode.prev = tail.prev;
+        
+        tail.prev.next = newNode;
+        tail.prev = newNode;
+    }
+
+    public void removeFront() {
+        head.next.next.prev = head;
+        head.next = head.next.next;
+    }   
+
+    public void removeEnd() {
+        tail.prev.prev.next = tail;
+        tail.prev = tail.prev.prev;
+    }   
+    
+    public void print() {
+        DoublyLinkedListNode curr = head.next;
+        while (curr != tail) {
+            System.out.print(curr.val + " -> ");
+            curr = curr.next;
+        }           
+        System.out.println();
+    }
+}
+```
+
+### <a name="chapter2part3"></a>Chapter 2 - Part 3: Queues
+
+**Time Complexity**
+
+| Operation | Big-O Time | Notes
+| :---: | :---: | :---: |
+| Enqueue | O(1) | |
+| Dequeue | O(1) | Check if the stack is empty first |
+
+```py
+class ListNode:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
+class Queue:
+    # Implementing this with dummy nodes would be easier!
+    def __init__(self):
+        self.left = self.right = None
+    
+    def enqueue(self, val):
+        newNode = ListNode(val)
+
+        # Queue is non-empty
+        if self.right:
+            self.right.next = newNode
+            self.right = self.right.next
+        # Queue is empty
+        else:
+            self.left = self.right = newNode
+
+    def dequeue(self):
+        # Queue is empty
+        if not self.left:
+            return None
+        
+        # Remove left node and return value
+        val = self.left.val
+        self.left = self.left.next
+        if not self.left:
+            self.right = None
+        return val
+
+    def print(self):
+        cur = self.left
+        while cur:
+            print(cur.val, ' -> ', end ="")
+            cur = cur.next
+        print() # new line
+
+```
+
+```java
+// public class ListNode {
+//     int val;
+//     ListNode next;
+//
+//     public ListNode(int val) {
+//         this.val = val;
+//         this.next = null;
+//     }
+// }
+
+public class Queue {
+    ListNode left;  // front of Queue   front -> [1,2,3]
+    ListNode right; // back of Queue   [1,2,3] <- back
+    
+    public Queue() {
+        this.left  = null;
+        this.right = null;
+    }
+
+    public void enqueue(int val) {
+        ListNode newNode = new ListNode(val);
+        if (this.right != null) {  
+        // Queue is not empty 
+            this.right.next = newNode;
+            this.right = this.right.next;
+        } else {       
+        // Queue is empty             
+            this.left = newNode;
+            this.right = newNode;
+        }
+    }
+
+    public int dequeue() {
+        if (this.left == null) {
+            // Queue is empty 
+            System.exit(0);
+        }
+        int val = this.left.val;
+        this.left = this.left.next;
+        if (this.left == null) {
+            this.right = null;
+        }
+        return val;
+    }
+
+    public void print() {
+        ListNode cur = this.left;
+        while(cur != null) {
+            System.out.print(cur.val + " -> ");
+            cur = cur.next;
+        }
+        System.out.println();
+    }
+
+}
+```
+
+## <a name="chapter3"></a>Chapter 3: Recursion
+
+### <a name="chapter3part1"></a>Chapter 3 - Part 1: Generate Parentheses(Recursion with Backtracking)
 
 Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 
