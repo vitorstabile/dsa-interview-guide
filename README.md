@@ -6,6 +6,7 @@
       - [Chapter 1 - Part 1.2: Remove Element](#chapter1part1.2)
       - [Chapter 1 - Part 1.3: Contains Duplicate](#chapter1part1.3)
       - [Chapter 1 - Part 1.4: Valid Anagram](#chapter1part1.4)
+      - [Chapter 1 - Part 1.5: Two Sum](#chapter1part1.5)
     - [Chapter 1 - Part 2: Dynamic Arrays](#chapter1part2)
       - [Chapter 1 - Part 2.1: Concatenation of Array](#chapter1part2.1)
     - [Chapter 1 - Part 3: Stacks](#chapter1part3)
@@ -599,6 +600,97 @@ public class DynamicArray {
         }
     }
 } 
+```
+
+#### <a name="chapter1part1.5"></a>Chapter 1 - Part 1.5: Two Sum
+
+**Solution - Brute Force**
+
+Time complexity: O(n^2)
+Space complexity: O(1)
+
+```py
+from typing import List
+
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        solution = []
+        for i, first_value in enumerate(nums):
+            for j, second_value in enumerate(nums):
+                if i == j:
+                    continue
+                if first_value + second_value == target:
+                    solution.append(i)
+                    solution.append(j)
+                    return solution
+
+
+nums = [3, 4, 5, 6]
+target = 7
+
+nums_2 = [4, 5, 6]
+target_2 = 10
+
+nums_3 = [5, 5]
+target_3 = 10
+
+print(Solution().twoSum(nums, target)) # [0, 1]
+print(Solution().twoSum(nums_2, target_2)) # [0, 2]
+print(Solution().twoSum(nums_3, target_3)) # [0, 1]
+```
+
+```java
+public class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[i] + nums[j] == target) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return new int[0];
+    }
+}
+```
+
+**Solution - HashMap**
+
+Time complexity: O(n)
+Space complexity: O(n)
+
+```py
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        prevMap = {}  # val -> index
+
+        for i, n in enumerate(nums):
+            diff = target - n
+            if diff in prevMap:
+                return [prevMap[diff], i]
+            prevMap[n] = i
+```
+
+```java
+public class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer, Integer> prevMap = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            int diff = target - num;
+
+            if (prevMap.containsKey(diff)) {
+                return new int[] { prevMap.get(diff), i };
+            }
+
+            prevMap.put(num, i);
+        }
+
+        return new int[] {};
+    }
+}
 ```
 
 #### <a name="chapter1part2.1"></a>Chapter 1 - Part 2.1: Concatenation of Array
