@@ -7,6 +7,7 @@
       - [Chapter 1 - Part 1.3: Contains Duplicate](#chapter1part1.3)
       - [Chapter 1 - Part 1.4: Valid Anagram](#chapter1part1.4)
       - [Chapter 1 - Part 1.5: Two Sum](#chapter1part1.5)
+      - [Chapter 1 - Part 1.6: Group Anagrams](#chapter1part1.6)
     - [Chapter 1 - Part 2: Dynamic Arrays](#chapter1part2)
       - [Chapter 1 - Part 2.1: Concatenation of Array](#chapter1part2.1)
     - [Chapter 1 - Part 3: Stacks](#chapter1part3)
@@ -708,6 +709,93 @@ public class Solution {
     }
 }
 ```
+
+#### <a name="chapter1part1.6"></a>Chapter 1 - Part 1.6: Group Anagrams
+
+**Solution - Sorting**
+
+Time complexity: O(n.klogk)
+Space complexity: O(n.k)
+
+```py
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        my_hashset = dict()
+        for i, str in enumerate(strs):
+            sorted_str = ''.join(sorted(str))
+            if not my_hashset.get(sorted_str):
+                my_hashset[sorted_str] = [i]
+            else:
+                my_hashset[sorted_str].append(i)
+        group = []
+        for keys, values in my_hashset.items():
+            new_group = []
+            for value in values:
+                new_group.append(strs[value])
+            group.append(new_group)
+        return group
+
+
+strs = ["act", "pots", "tops", "cat", "stop", "hat"]
+strs_2 = ["x"]
+strs_3 = [""]
+
+print(Solution().groupAnagrams(strs))  # [['act', 'cat'], ['pots', 'tops', 'stop'], ['hat']]
+print(Solution().groupAnagrams(strs_2))  # [['x']]
+print(Solution().groupAnagrams(strs_3))  # [['']]
+```
+
+```java
+public class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> res = new HashMap<>();
+        for (String s : strs) {
+            char[] charArray = s.toCharArray();
+            Arrays.sort(charArray);
+            String sortedS = new String(charArray);
+            res.putIfAbsent(sortedS, new ArrayList<>());
+            res.get(sortedS).add(s);
+        }
+        return new ArrayList<>(res.values());
+    }
+}
+```
+
+**Solution - Hash Table**
+
+Time complexity: O(n.k)
+Space complexity: O(n.k)
+
+```py
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        res = defaultdict(list)
+        for s in strs:
+            count = [0] * 26
+            for c in s:
+                count[ord(c) - ord('a')] += 1
+            res[tuple(count)].append(s)
+        return list(res.values())
+```
+
+```java
+public class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> res = new HashMap<>();
+        for (String s : strs) {
+            int[] count = new int[26];
+            for (char c : s.toCharArray()) {
+                count[c - 'a']++;
+            }
+            String key = Arrays.toString(count);
+            res.putIfAbsent(key, new ArrayList<>());
+            res.get(key).add(s);
+        }
+        return new ArrayList<>(res.values());
+    }
+}
+```
+
 
 #### <a name="chapter1part2.1"></a>Chapter 1 - Part 2.1: Concatenation of Array
 
