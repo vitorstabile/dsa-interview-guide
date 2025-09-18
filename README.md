@@ -1508,46 +1508,54 @@ public class DoublyLinkedList {
 | Dequeue | O(1) | Check if the stack is empty first |
 
 ```py
-class ListNode:
-    def __init__(self, val):
-        self.val = val
+class Node:
+    def __init__(self, data):
+        self.data = data
         self.next = None
 
-class Queue:
-    # Implementing this with dummy nodes would be easier!
-    def __init__(self):
-        self.left = self.right = None
-    
-    def enqueue(self, val):
-        newNode = ListNode(val)
 
-        # Queue is non-empty
-        if self.right:
-            self.right.next = newNode
-            self.right = self.right.next
+class Queue:
+    def __init__(self):
+        self.right = None
+        self.left = None
+
+    def enqueue(self, data):
+        new_node = Node(data)
         # Queue is empty
+        if self.right is None:
+            self.right = new_node
+            self.left = new_node
+        # Queue is non-empty
         else:
-            self.left = self.right = newNode
+            self.right.next = new_node
+            self.right = self.right.next
 
     def dequeue(self):
         # Queue is empty
         if not self.left:
             return None
-        
+
         # Remove left node and return value
-        val = self.left.val
+        data = self.left.data
         self.left = self.left.next
         if not self.left:
             self.right = None
-        return val
+        return data
 
-    def print(self):
-        cur = self.left
-        while cur:
-            print(cur.val, ' -> ', end ="")
-            cur = cur.next
-        print() # new line
+    def print_queue(self):
+        current = self.left
+        while current:
+            print(current.data, end=" -> ")
+            current = current.next
+        print("None")
 
+
+queue = Queue()
+queue.enqueue('John')
+queue.enqueue('Bob')
+queue.enqueue('Laila')
+print(queue.dequeue())  # remove John
+queue.print_queue() # Bob -> Laila -> None
 ```
 
 ```java
