@@ -1228,6 +1228,33 @@ class SinglyLinkedList:
             new_node.next = self.head
             self.head = new_node
 
+    def remove_from_front(self):
+        if self.head is None:
+            return
+
+        if self.head == self.tail:
+            self.head = None
+            self.tail = None
+            return
+
+        self.head = self.head.next
+
+    def remove_from_back(self):
+        if self.head is None:
+            return
+
+        if self.head == self.tail:
+            self.head = None
+            self.tail = None
+            return
+
+        current = self.head
+        while current.next != self.tail:
+            current = current.next
+
+        current.next = None
+        self.tail = current
+
     def remove_at_index(self, index):
         if self.head is None:
             return
@@ -1259,13 +1286,23 @@ class SinglyLinkedList:
         print("None")
 
 
+# Example Usage
 singly_linked_list = SinglyLinkedList()
+
+print("--- Inserting nodes ---")
 singly_linked_list.insert_at_end('John')
 singly_linked_list.insert_at_end('Bob')
 singly_linked_list.insert_at_beginning('Laila')
-singly_linked_list.remove_at_index(2)
-singly_linked_list.print_list()
+singly_linked_list.insert_at_end('Susan')
+singly_linked_list.print_list()  # Output: Laila -> John -> Bob -> Susan -> None
 
+print("\n--- Removing from the front ---")
+singly_linked_list.remove_from_front()
+singly_linked_list.print_list()  # Output: John -> Bob -> Susan -> None
+
+print("\n--- Removing from the back ---")
+singly_linked_list.remove_from_back()
+singly_linked_list.print_list()  # Output: John -> Bob -> None
 ```
 
 ```java
@@ -1381,54 +1418,130 @@ HEAD → [10] → [20] → [99] → [30] → [40] → [50] → NULL
 Complexity: O(1) (just changing two pointers).
 
 ```py
-class ListNode:
-    def __init__(self, val):
-        self.val = val
+class Node:
+    def __init__(self, data):
+        self.data = data
         self.next = None
         self.prev = None
 
-# Implementation for Doubly Linked List
-class LinkedList:
+
+class DoublyLinkedList:
     def __init__(self):
-        # Init the list with 'dummy' head and tail nodes which makes 
-        # edge cases for insert & remove easier.
-        self.head = ListNode(-1)
-        self.tail = ListNode(-1)
-        self.head.next = self.tail
-        self.tail.prev = self.head
-    
-    def insertFront(self, val):
-        newNode = ListNode(val)
-        newNode.prev = self.head
-        newNode.next = self.head.next
+        self.head = None
+        self.tail = None
 
-        self.head.next.prev = newNode
-        self.head.next = newNode
+    def insert_at_end(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            self.tail.next = new_node
+            new_node.prev = self.tail
+            self.tail = new_node
 
-    def insertEnd(self, val):
-        newNode = ListNode(val)
-        newNode.next = self.tail
-        newNode.prev = self.tail.prev
+    def insert_at_beginning(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
 
-        self.tail.prev.next = newNode
-        self.tail.prev = newNode
+    def remove_at_index(self, index):
+        if self.head is None:
+            return
 
-    # Remove first node after dummy head (assume it exists)
-    def removeFront(self):
-        self.head.next.next.prev = self.head
-        self.head.next = self.head.next.next
+        if index == 0:
+            self.remove_from_front()
+            return
 
-    # Remove last node before dummy tail (assume it exists)
-    def removeEnd(self):
-        self.tail.prev.prev.next = self.tail
-        self.tail.prev = self.tail.prev.prev
+        current = self.head
+        count = 0
+        while current and count < index:
+            current = current.next
+            count += 1
 
-    def print(self):
-        curr = self.head.next
-        while curr != self.tail:
-            print(curr.val, " -> ")
-            curr = curr.next
-        print()
+        if current is None:
+            return
+
+        if current == self.tail:
+            self.remove_from_back()
+            return
+
+        current.prev.next = current.next
+        current.next.prev = current.prev
+
+    def remove_from_front(self):
+        if self.head is None:
+            return
+
+        if self.head == self.tail:
+            self.head = None
+            self.tail = None
+            return
+
+        self.head = self.head.next
+        self.head.prev = None
+
+    def remove_from_back(self):
+        if self.head is None:
+            return
+
+        if self.head == self.tail:
+            self.head = None
+            self.tail = None
+            return
+
+        self.tail = self.tail.prev
+        self.tail.next = None
+
+    def print_list_forward(self):
+        current = self.head
+        while current:
+            print(current.data, end=" <-> ")
+            current = current.next
+        print("None")
+
+    def print_list_backward(self):
+        current = self.tail
+        while current:
+            print(current.data, end=" <-> ")
+            current = current.prev
+        print("None")
+
+
+# Example Usage
+dll = DoublyLinkedList()
+
+print("--- Inserting nodes ---")
+dll.insert_at_end('John')
+dll.insert_at_end('Bob')
+dll.insert_at_beginning('Laila')
+dll.insert_at_end('Susan')
+print("Forward traversal:", end=" ")
+dll.print_list_forward()  # Output: Laila <-> John <-> Bob <-> Susan <-> None
+print("Backward traversal:", end=" ")
+dll.print_list_backward()  # Output: Susan <-> Bob <-> John <-> Laila <-> None
+
+print("\n--- Removing 'Bob' (index 2) ---")
+dll.remove_at_index(2)
+print("Forward traversal:", end=" ")
+dll.print_list_forward()  # Output: Laila <-> John <-> Susan <-> None
+
+print("\n--- Removing from the front ('Laila') ---")
+dll.remove_from_front()
+print("Forward traversal:", end=" ")
+dll.print_list_forward()  # Output: John <-> Susan <-> None
+
+print("\n--- Removing from the back ('Susan') ---")
+dll.remove_from_back()
+print("Forward traversal:", end=" ")
+dll.print_list_forward()  # Output: John <-> None
+print("Backward traversal:", end=" ")
+dll.print_list_backward()  # Output: John <-> None
 ```
 
 ```java
