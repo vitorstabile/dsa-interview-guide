@@ -710,11 +710,11 @@ public class Solution {
 [Concatenation of Array](https://leetcode.com/problems/concatenation-of-array/description/)
 
 ```
-
 **Solution - Iteration**
 
 Time complexity: O(n)
 Space complexity: O(1)
+```
 
 ```py
 from typing import List
