@@ -128,35 +128,8 @@ public class StaticArray {
 
 #### <a name="chapter1part1.1"></a>Chapter 1 - Part 1.1: Remove Duplicates From Sorted Array
 
-You are given an integer array nums sorted in non-decreasing order. Your task is to remove duplicates from nums in-place so that each element appears only once.
+[Remove Duplicates From Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/description/)
 
-After removing the duplicates, return the number of unique elements, denoted as k, such that the first k elements of nums contain the unique elements.
-
-Note:
-
-The order of the unique elements should remain the same as in the original array.
-It is not necessary to consider elements beyond the first k positions of the array.
-To be accepted, the first k elements of nums must contain all the unique elements.
-
-**Example 1:**
-
-```
-Input: nums = [1,1,2,3,4]
-
-Output: [1,2,3,4]
-```
-
-Explanation: You should return k = 4 as we have four unique elements.
-
-**Example 2:**
-
-```
-Input: nums = [2,10,10,30,30,30]
-
-Output: [2,10,30]
-```
-
-Explanation: You should return k = 3 as we have three unique elements.
 
 **Solution - Two Pointers**
 
@@ -255,43 +228,7 @@ public class Solution {
 
 #### <a name="chapter1part1.2"></a>Chapter 1 - Part 1.2: Remove Element
 
-You are given an integer array nums and an integer val. Your task is to remove all occurrences of val from nums in-place.
-
-After removing all occurrences of val, return the number of remaining elements, say k, such that the first k elements of nums do not contain val.
-
-Note:
-
-- The order of the elements which are not equal to val does not matter.
-- It is not necessary to consider elements beyond the first k positions of the array.
-- To be accepted, the first k elements of nums must contain only elements not equal to val.
-
-Return k as the final result.
-
-**Example 1:**
-
-```
-Input: nums = [1,1,2,3,4], val = 1
-
-Output: [2,3,4]
-```
-
-Explanation: You should return k = 3 as we have 3 elements which are not equal to val = 1.
-
-**Example 2:**
-
-```
-Input: nums = [0,1,2,2,3,0,4,2], val = 2
-
-Output: [0,1,3,0,4]
-```
-
-Explanation: You should return k = 5 as we have 5 elements which are not equal to val = 2.
-
-Constraints:
-
-- 0 <= nums.length <= 100
-- 0 <= nums[i] <= 50
-- 0 <= val <= 100
+[Remove Element](https://leetcode.com/problems/remove-element/description/)
 
 **Solution - Two Pointers**
 
@@ -367,23 +304,7 @@ public class Solution {
 
 #### <a name="chapter1part1.3"></a>Chapter 1 - Part 1.3: Contains Duplicate
 
-Given an integer array nums, return true if any value appears more than once in the array, otherwise return false.
-
-**Example 1:**
-
-```
-Input: nums = [1, 2, 3, 3]
-
-Output: true
-```
-
-**Example 2:**
-
-```
-Input: nums = [1, 2, 3, 4]
-
-Output: false
-```
+[Contains Duplicate](https://leetcode.com/problems/contains-duplicate/description/)
 
 **Solution - Set Lenght**
 
@@ -417,25 +338,7 @@ public class Solution {
 
 #### <a name="chapter1part1.4"></a>Chapter 1 - Part 1.4: Valid Anagram
 
-Given two strings s and t, return true if the two strings are anagrams of each other, otherwise return false.
-
-An anagram is a string that contains the exact same characters as another string, but the order of the characters can be different.
-
-**Example 1:**
-
-```
-Input: s = "racecar", t = "carrace"
-
-Output: true
-```
-
-**Example 2:**
-
-```
-Input: s = "jar", t = "jam"
-
-Output: false
-```
+ [Valid Anagram](https://leetcode.com/problems/valid-anagram/description/)
 
 **Solution - Sort**
 
@@ -622,6 +525,8 @@ public class DynamicArray {
 
 #### <a name="chapter1part1.5"></a>Chapter 1 - Part 1.5: Two Sum
 
+[Two Sum](https://leetcode.com/problems/two-sum/description/)
+
 **Solution - Brute Force**
 
 Time complexity: O(n^2)
@@ -713,6 +618,8 @@ public class Solution {
 
 #### <a name="chapter1part1.6"></a>Chapter 1 - Part 1.6: Group Anagrams
 
+[Group Anagrams](https://leetcode.com/problems/group-anagrams/description/)
+
 **Solution - Sorting**
 
 Time complexity: O(n.klogk)
@@ -800,26 +707,8 @@ public class Solution {
 
 #### <a name="chapter1part2.1"></a>Chapter 1 - Part 2.1: Concatenation of Array
 
-You are given an integer array nums of length n. Create an array ans of length 2n where ans[i] == nums[i] and ans[i + n] == nums[i] for 0 <= i < n (0-indexed).
+[Concatenation of Array](https://leetcode.com/problems/concatenation-of-array/description/)
 
-Specifically, ans is the concatenation of two nums arrays.
-
-Return the array ans.
-
-**Example 1:**
-
-```
-Input: nums = [1,4,1,2]
-
-Output: [1,4,1,2,1,4,1,2]
-```
-
-**Example 2:**
-
-```
-Input: nums = [22,21,20,1]
-
-Output: [22,21,20,1,22,21,20,1]
 ```
 
 **Solution - Iteration**
@@ -922,45 +811,7 @@ public class Stack {
 
 #### <a name="chapter1part3.1"></a>Chapter 1 - Part 3.1: Valid Parentheses
 
-You are given a string s consisting of the following characters: '(', ')', '{', '}', '[' and ']'.
-
-The input string s is valid if and only if:
-
-- Every open bracket is closed by the same type of close bracket.
-- Open brackets are closed in the correct order.
-- Every close bracket has a corresponding open bracket of the same type.
-
-Return true if s is a valid string, and false otherwise.
-
-**Example 1:**
-
-```
-Input: s = "[]"
-
-Output: true
-```
-
-**Example 2:**
-
-```
-Input: s = "([{}])"
-
-Output: true
-```
-
-**Example 3:**
-
-```
-Input: s = "[(])"
-
-Output: false
-```
-
-Explanation: The brackets are not closed in the correct order.
-
-Constraints:
-
-- 1 <= s.length <= 1000
+[Valid Parentheses](https://leetcode.com/problems/valid-parentheses/description/)
 
 **Solution - Stack**
 
@@ -1023,38 +874,7 @@ public class Solution {
 
 #### <a name="chapter1part3.2"></a>Chapter 1 - Part 3.2: Min Stack
 
-Design a stack class that supports the push, pop, top, and getMin operations.
-
-- MinStack() initializes the stack object.
-- void push(int val) pushes the element val onto the stack.
-- void pop() removes the element on the top of the stack.
-- int top() gets the top element of the stack.
-- int getMin() retrieves the minimum element in the stack.
-
-Each function should run in O(1) time.
-
-**Example 1:**
-
-```
-Input: ["MinStack", "push", 1, "push", 2, "push", 0, "getMin", "pop", "top", "getMin"]
-
-Output: [null,null,null,null,0,null,2,1]
-
-Explanation:
-MinStack minStack = new MinStack();
-minStack.push(1);
-minStack.push(2);
-minStack.push(0);
-minStack.getMin(); // return 0
-minStack.pop();
-minStack.top();    // return 2
-minStack.getMin(); // return 1
-```
-
-**Constraints:**
-
-- ```-2^31 <= val <= 2^31 - 1.```
-- pop, top and getMin will always be called on non-empty stacks.
+[Min Stack](https://leetcode.com/problems/min-stack/description/)
 
 **Solution - Two Stacks**
 
@@ -1732,7 +1552,7 @@ public class Queue {
 
 #### <a name="chapter2part3.1"></a>Chapter 2 - Part 3.1: Number of Students Unable to Eat Lunch
 
-[Number of Students Unable to Eat Lunch](https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/submissions/1778846707/)
+[Number of Students Unable to Eat Lunch](https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/description/)
 
 **Solution - Frequency Count**
 
