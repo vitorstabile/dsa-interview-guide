@@ -17,7 +17,7 @@
 	- [Chapter 2 - Part 1: Singly Linked Lists](#chapter2part1)
 	- [Chapter 2 - Part 2: Doubly Linked Lists](#chapter2part2)
 	- [Chapter 2 - Part 3: Queues](#chapter2part3)
- 		- [Chapter 2 - Part 3.1: Number of Students Unable to Eat Lunch](#chapter1part3.1)
+ 		- [Chapter 2 - Part 3.1: Number of Students Unable to Eat Lunch](#chapter2part3.1)
 3. [Chapter 3: Recursion](#chapter3)
     - [Chapter 3 - Part 1: Generate Parentheses(Recursion with Backtracking)](#chapter3part1)
 
