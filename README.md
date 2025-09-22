@@ -17,6 +17,7 @@
 	- [Chapter 2 - Part 1: Singly Linked Lists](#chapter2part1)
 	- [Chapter 2 - Part 2: Doubly Linked Lists](#chapter2part2)
 	- [Chapter 2 - Part 3: Queues](#chapter2part3)
+ 		- [Chapter 2 - Part 3.1: Number of Students Unable to Eat Lunch](#chapter1part3.1)
 3. [Chapter 3: Recursion](#chapter3)
     - [Chapter 3 - Part 1: Generate Parentheses(Recursion with Backtracking)](#chapter3part1)
 
@@ -1055,7 +1056,7 @@ minStack.getMin(); // return 1
 - ```-2^31 <= val <= 2^31 - 1.```
 - pop, top and getMin will always be called on non-empty stacks.
 
-****Solution - Two Stacks**
+**Solution - Two Stacks**
 
 ```py
 class MinStack:
@@ -1728,6 +1729,56 @@ public class Queue {
 
 }
 ```
+
+#### <a name="chapter2part3.1"></a>Chapter 2 - Part 3.1: Number of Students Unable to Eat Lunch
+
+[Number of Students Unable to Eat Lunch](https://leetcode.com/problems/number-of-students-unable-to-eat-lunch/submissions/1778846707/)
+
+**Solution - Frequency Count**
+
+```py
+class Solution(object):
+    def countStudents(self, students, sandwiches):
+        students_dict = {}
+        res = len(students)
+        for student in students:
+            if not students_dict.get(student):
+                students_dict[student] = 1
+            else:
+                students_dict[student] = students_dict[student] + 1
+        for sandwiche in sandwiches:
+            if students_dict.get(sandwiche) > 0:
+                students_dict[sandwiche] = students_dict[sandwiche] - 1
+                res = res - 1
+            else:
+                break
+        return res
+```
+
+```java
+public class Solution {
+    public int countStudents(int[] students, int[] sandwiches) {
+        int n = students.length;
+        int res = n;
+        int[] cnt = new int[2];
+        for (int i = 0; i < n; i++) {
+            cnt[students[i]]++;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (cnt[sandwiches[i]] > 0) {
+                res--;
+                cnt[sandwiches[i]]--;
+            } else {
+                break;
+            }
+        }
+
+        return res;
+    }
+}
+```
+
 
 ## <a name="chapter3"></a>Chapter 3: Recursion
 
